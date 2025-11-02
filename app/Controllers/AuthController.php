@@ -18,8 +18,8 @@ class AuthController extends BaseController
             $data = $this->request->getPost();
 
             $validation->setRules([
-                'email' => 'required',
-                'password' => 'required'
+                'email' => 'required|valid_email',
+                'password' => 'required|min_length[6]'
             ]);
 
             if (! $validation->run($data)) {
@@ -28,7 +28,7 @@ class AuthController extends BaseController
                 ]);
             }
 
-            // check if user exists
+            // check if user exists via email or username, depending on what was provided by the user
             $user = $model->where('email', $data['email'])
                 ->orWhere('username', $data['email'])
                 ->first();
