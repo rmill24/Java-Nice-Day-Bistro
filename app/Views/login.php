@@ -82,7 +82,7 @@
             <input type="password" name="password" />
 
             <br>
-            <input type="submit" value="Login" />
+            <button type="submit" class="btn btn-dark">Login</button>
 
             <?= form_close() ?>
 
