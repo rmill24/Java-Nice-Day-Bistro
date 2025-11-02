@@ -18,8 +18,8 @@ class AuthController extends BaseController
             $data = $this->request->getPost();
 
             $validation->setRules([
-                'email' => 'required|valid_email',
-                'password' => 'required|min_length[6]'
+                'email' => 'required',
+                'password' => 'required'
             ]);
 
             if (! $validation->run($data)) {
@@ -47,7 +47,7 @@ class AuthController extends BaseController
                 if ($user['role'] === 'admin') {
                     return redirect()->to('admin');
                 } else {
-                    return redirect()->to('home');
+                    return redirect()->to('profile');
                 }
             } else {
                 return view('login', [
