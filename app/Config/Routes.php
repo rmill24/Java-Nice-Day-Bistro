@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->get('/', 'HomeController::index');
+$routes->get('/menu', 'MenuController::index');
 
 $routes->get('/login', 'AuthController::login');
 $routes->post('/login', 'AuthController::login');
