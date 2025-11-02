@@ -179,9 +179,21 @@
       <h1 class="col-md-5">Stay Up To Date On All News And Offers.</h1>
       <div class="col-md-5">
         <form class="p-4 p-md-5 border rounded-3 bg-body-light">
-          <a href="<?= url_to('register') ?>" class="w-100 btn btn-lg btn-dark">Sign Up</a>
-          <hr class="my-4" />
-          <small class="text-body-secondary">You will be redirected to the registration page by clicking Sign Up.</small>
+          <?php if (! session()->get('logged_in')): ?>
+            <a href="<?= url_to('register') ?>" class="w-100 btn btn-lg btn-dark">Sign Up</a>
+            <hr class="my-4" />
+            <small class="text-body-secondary">You will be redirected to the registration page by clicking Sign Up.</small>
+          <?php else: ?>
+            <?php if (session()->get('role') == 'admin'): ?>
+              <a href="<?= site_url('admin') ?>" class="w-100 btn btn-lg btn-dark">Go to Dashboard</a>
+              <hr class="my-4" />
+              <small class="text-body-secondary">You're already signed in as an admin. Click the button to go to your dashboard.</small>
+            <?php else: ?>
+              <a href="<?= site_url('profile') ?>" class="w-100 btn btn-lg btn-dark">Go to Dashboard</a>
+              <hr class="my-4" />
+              <small class="text-body-secondary">You're already signed in. Click the button to go to your profile.</small>
+            <?php endif; ?>
+          <?php endif; ?>
         </form>
       </div>
     </section>
