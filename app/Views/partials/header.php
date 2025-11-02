@@ -1,7 +1,9 @@
  <header>
+   <!-- Load FontAwesome so cart icon shows in header (loaded here once for views that include this partial) -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
      <div class="container-fluid">
-       <a class="navbar-brand" href="<?= url_to('/')?>">Java Nice Day Bistro</a>
+       <a class="navbar-brand" href="<?= url_to('/') ?>">Java Nice Day Bistro</a>
        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
          aria-label="Toggle navigation">
@@ -15,13 +17,8 @@
            <li class="nav-item">
              <a class="nav-link" href="#">About Us</a>
            </li>
-           <li class="nav-item dropdown">
-             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false">Menu</a>
-             <ul class="dropdown-menu">
-               <li><a class="dropdown-item" href="#">Drinks</a></li>
-               <li><a class="dropdown-item" href="#">Pastries</a></li>
-             </ul>
+           <li class="nav-item">
+             <a class="nav-link" href="<?= site_url('menu') ?>">Menu</a>
            </li>
            <li class="nav-item dropdown">
              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,7 +30,7 @@
                    <?php if (session()->get('role') == 'admin'): ?>
                      <a class="nav-link" href="<?= site_url('admin') ?>">Admin Dashboard</a>
                    <?php else: ?>
-                     <a class="nav-link" href="<?= site_url('profile') ?>">Profile</a>
+                     <a class="nav-link" href="<?= site_url('profile') ?>">Customer Dashboard</a>
                    <?php endif; ?>
                  <?php else: ?>
                    <a class="nav-link" href="<?= site_url('login') ?>">Log In</a>
@@ -47,10 +44,10 @@
              </ul>
            </li>
          </ul>
-         <form class="d-flex" role="search">
-           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-           <button class="btn btn-outline-dark" type="submit">Search</button>
-         </form>
+         <!-- Replaced search with cart icon (no link) -->
+         <div class="d-flex align-items-center">
+           <button class="btn btn-outline-dark" type="button" aria-label="Cart"><i class="fa-solid fa-cart-shopping"></i></button>
+         </div>
        </div>
      </div>
    </nav>

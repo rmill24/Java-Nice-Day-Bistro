@@ -3,10 +3,10 @@
     <p class="col-md-4 mb-0 text-body-secondary">&copy; Java Nice Day Bistro</p>
     <ul class="nav col-md-4 justify-content-end">
       <li class="nav-item">
-        <a href="#" class="nav-link px-2 text-body-secondary">Home</a>
+        <a href="<?= url_to('/') ?>" class="nav-link px-2 text-body-secondary">Home</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link px-2 text-body-secondary">Menu</a>
+        <a href="<?= site_url('menu') ?>" class="nav-link px-2 text-body-secondary">Menu</a>
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link px-2 text-body-secondary">FAQs</a>
