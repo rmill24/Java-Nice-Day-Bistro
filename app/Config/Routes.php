@@ -16,7 +16,7 @@ $routes->post('/register', 'AuthController::register');
 
 $routes->get('/logout', 'AuthController::logout');
 
-$routes->get('/home', 'DashboardController::index');
+$routes->get('/profile', 'DashboardController::index');
 $routes->get('/admin', 'DashboardController::index');
 
 // admin user maintenance
