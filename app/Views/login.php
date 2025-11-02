@@ -15,9 +15,10 @@
         }
 
 
-        * {
+        body {
             font-family: 'Poppins', Arial, Helvetica, sans-serif;
             background: var(--muted-bg);
+            color: #1f1f1f;
         }
 
         main {

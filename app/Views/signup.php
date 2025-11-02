@@ -14,10 +14,10 @@
             --muted-bg: #f7f6f5;
         }
 
-
-        * {
+        body {
             font-family: 'Poppins', Arial, Helvetica, sans-serif;
             background: var(--muted-bg);
+            color: #1f1f1f;
         }
 
         main {

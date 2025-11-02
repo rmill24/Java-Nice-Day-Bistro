@@ -21,13 +21,12 @@
         }
 
         body {
-            background: linear-gradient(180deg, #fff 0%, var(--muted) 100%);
+            background: linear-gradient(180deg, #fff 0%, var(--muted-bg) 100%);
             color: #222;
         }
 
         .dashboard-container {
             padding-top: 5.5rem;
-            /* leave space for fixed navbar */
             padding-bottom: 3rem;
         }
 
@@ -120,24 +119,49 @@
         <div class="row g-4">
             <div class="col-lg-8">
                 <section>
-                    <h3 class="mb-3">Coffee Menu</h3>
-                    <div class="menu-grid">
-                        <?php if (! empty($items)): foreach ($items as $item): ?>
-                                <div class="menu-card">
+                    <h3 class="mb-3">Order History</h3>
+                    <?php
+                    // static order history for now
+                    $orders = [
+                        [
+                            'id' => '#1001',
+                            'date' => '2025-10-01',
+                            'items' => [['name' => 'Signature Black Coffee', 'qty' => 1], ['name' => 'Matcha Latte', 'qty' => 1]],
+                            'total' => 270.00
+                        ],
+                        [
+                            'id' => '#1002',
+                            'date' => '2025-10-12',
+                            'items' => [['name' => 'Strawberry Frappuccino', 'qty' => 2]],
+                            'total' => 360.00
+                        ],
+                    ];
+                    ?>
+
+                    <?php if (! empty($orders)): ?>
+                        <div class="d-flex flex-column gap-3">
+                            <?php foreach ($orders as $order): ?>
+                                <div class="p-3 bg-white rounded shadow-sm">
                                     <div class="d-flex justify-content-between align-items-start">
-                                        <div class="title"><?= esc($item['name']) ?></div>
-                                        <div class="price-badge">₱<?= number_format($item['price'], 2) ?></div>
+                                        <div>
+                                            <strong>Order <?= esc($order['id']) ?></strong>
+                                            <div class="muted"><?= esc($order['date']) ?></div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="price-badge">₱<?= number_format($order['total'], 2) ?></div>
+                                        </div>
                                     </div>
-                                    <div class="desc"><?= esc($item['description']) ?></div>
-                                    <div class="mt-2 d-flex justify-content-end">
-                                        <button class="btn btn-sm btn-outline-dark">Add</button>
+                                    <div class="mt-2 muted">
+                                        <?php foreach ($order['items'] as $it): ?>
+                                            <div><?= esc($it['qty']) ?> x <?= esc($it['name']) ?></div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
-                            <?php endforeach;
-                        else: ?>
-                            <p class="muted">No items available.</p>
-                        <?php endif; ?>
-                    </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p class="muted">You have no previous orders.</p>
+                    <?php endif; ?>
                 </section>
             </div>
 
