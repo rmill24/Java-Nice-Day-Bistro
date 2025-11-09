@@ -13,6 +13,7 @@
         :root {
             --accent: #222222ff;
             --muted-bg: #f7f6f5;
+            --light-brown: #615444ff
         }
 
         * {
@@ -81,12 +82,46 @@
             color: #dc3545;
         }
 
-        .actions i:hover, .add-btn:hover {
+        .actions i:hover,
+        .add-btn:hover {
             transform: translateY(-2px);
         }
 
-        i, .add-btn {
+        i,
+        .add-btn {
             transition: transform .15s ease, opacity .15s ease;
+        }
+
+        .pagination {
+            margin: 0;
+            padding: 0;
+            gap: 8px;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 6px 10px;
+            color: #fff;
+            background: #222;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1px solid rgba(0, 0, 0, .06);
+            transition: background .12s ease, transform .08s ease;
+        }
+        .pagination a:hover,
+        .pagination a:focus {
+            background: #333;
+            transform: translateY(-2px);
+        }
+        .pagination li.active a {
+            background: var(--light-brown);
+            color: #fff;
+        }
+        .pagination li.disabled a {
+            background: #e9ecef;
+            color: #6c757d;
+            pointer-events: none;
+            transform: none;
         }
     </style>
 </head>
@@ -99,7 +134,7 @@
             <div class="admin-card">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Admin Dashboard</h2>
-                    <a href="<?= url_to('UserController::add')?>" class="add-btn"><i class="fa-solid fa-user-plus"></i> Add User</a>
+                    <a href="<?= url_to('UserController::add') ?>" class="add-btn"><i class="fa-solid fa-user-plus"></i> Add User</a>
                 </div>
 
                 <h5 class="mt-3">Registered Users</h5>
@@ -116,20 +151,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $user): ?>
+                            <?php if (! empty($users) && is_array($users)): ?>
+                                <?php foreach ($users as $user): ?>
+                                    <tr>
+                                        <td><?= esc($user['id']) ?></td>
+                                        <td><?= esc($user['username']) ?></td>
+                                        <td><?= esc($user['email']) ?></td>
+                                        <td><?= esc($user['role']) ?></td>
+                                        <td class="actions">
+                                            <a href="<?= url_to('UserController::edit', $user['id']) ?>" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            <a href="<?= url_to('UserController::delete', $user['id']) ?>" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
                                 <tr>
-                                    <td><?= esc($user['id']) ?></td>
-                                    <td><?= esc($user['username']) ?></td>
-                                    <td><?= esc($user['email']) ?></td>
-                                    <td><?= esc($user['role']) ?></td>
-                                    <td class="actions">
-                                        <a href="<?= url_to('UserController::edit', $user['id']) ?>" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="<?= url_to('UserController::delete', $user['id']) ?>" title="Delete"><i class="fa-solid fa-trash"></i></a>
-                                    </td>
+                                    <td colspan="5" class="text-center py-4">No users found.</td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
+                    <!-- Pager links -->
+                    <?php if (isset($pager) && $pager): ?>
+                        <div class="d-flex justify-content-end mt-3">
+                            <?= $pager->links() ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

@@ -16,8 +16,10 @@ class DashboardController extends BaseController
 
         if ($role == 'admin') {
             $model = new UserModel();
-            $users = $model->findAll();
-            return view('admin_dashboard', ['users' => $users]);
+            $users = $model->orderBy('id', 'asc')->paginate(5);
+            $pager = $model->pager;
+
+            return view('admin_dashboard', ['users' => $users, 'pager' => $pager]);
         } else {
             // static coffee shop products
             $items = [
